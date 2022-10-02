@@ -1,6 +1,8 @@
-import java.util.*;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.NoSuchElementException;
 
-public class LinkedArrayList<E> implements Iterable<E>, List<E> {
+public class LinkedArrayList<E> implements Iterable<E> {
 
     int size = 0;
     public Triplet<E> first;
@@ -23,7 +25,7 @@ public class LinkedArrayList<E> implements Iterable<E>, List<E> {
         return true;
     }
 
-    @Override
+
     public boolean removeAll(Collection<?> c) {
         for (Object o : c) {
             if (indexOf(o) > -1) {
@@ -33,17 +35,10 @@ public class LinkedArrayList<E> implements Iterable<E>, List<E> {
         return false;
     }
 
-    @Override
-    public boolean retainAll(Collection<?> c) {
-        return false;
-    }
-
-    @Override
     public void clear() {
         updateTriplet();
     }
 
-    @Override
     public E get(int index) {
         checkElementIndex(index);
         int i = 0;
@@ -54,25 +49,27 @@ public class LinkedArrayList<E> implements Iterable<E>, List<E> {
         throw new NoSuchElementException();
     }
 
-    @Override
-    public E set(int index, E element) {
-        return null;
-    }
-
-    @Override
     public void add(int index, E element) {
+        Object[] array = this.toArray();
+        Object[] result = new Object[array.length + 1];
 
+        System.arraycopy(array, 0, result, 0, index);
+        result[index] = element;
+        System.arraycopy(array, index, result, index + 1, array.length - index);
+
+        arrayToTriplets(result);
     }
 
-    @Override
     public E remove(int index) {
-        checkElementIndex(index);
 
         Object[] array = this.toArray();
         Object OldValue = array[index];
-        System.arraycopy(array, index + 1, array, index, array.length - 1 - index);
-        arrayToTriplets(array);
-        size--;
+        Object[] result = new Object[array.length - 1];
+
+        System.arraycopy(array, 0, result, 0, index);
+        System.arraycopy(array, index + 1, result, index, array.length - index - 1);
+
+        arrayToTriplets(result);
         return (E) OldValue;
     }
 
@@ -83,7 +80,6 @@ public class LinkedArrayList<E> implements Iterable<E>, List<E> {
         }
     }
 
-    @Override
     public int indexOf(Object o) {
         int i = 0;
         for (E e :
@@ -92,26 +88,6 @@ public class LinkedArrayList<E> implements Iterable<E>, List<E> {
             i++;
         }
         return -1;
-    }
-
-    @Override
-    public int lastIndexOf(Object o) {
-        return 0;
-    }
-
-    @Override
-    public ListIterator<E> listIterator() {
-        return null;
-    }
-
-    @Override
-    public ListIterator<E> listIterator(int index) {
-        return null;
-    }
-
-    @Override
-    public List<E> subList(int fromIndex, int toIndex) {
-        return null;
     }
 
     void linkFirst(E e) {
@@ -217,7 +193,6 @@ public class LinkedArrayList<E> implements Iterable<E>, List<E> {
         return size == 0;
     }
 
-    @Override
     public boolean contains(Object o) {
         for (E e : this) {
             if (e == (E) o)
@@ -262,7 +237,6 @@ public class LinkedArrayList<E> implements Iterable<E>, List<E> {
         return new LinkedArrayListIterator();
     }
 
-    @Override
     public Object[] toArray() {
         Object[] array = new Object[size()];
         int i = 0;
@@ -272,24 +246,21 @@ public class LinkedArrayList<E> implements Iterable<E>, List<E> {
         return array;
     }
 
-    @Override
-    public <T> T[] toArray(T[] a) {
-        return null;
-    }
-
-    @Override
     public boolean add(E e) {
         addLast(e);
         return true;
     }
 
-    @Override
     public boolean remove(Object o) {
-        remove(indexOf(o));
+        int i = 0;
+        for (E e :
+                this) {
+            if (e == o) remove(i);
+            i++;
+        }
         return false;
     }
 
-    @Override
     public boolean containsAll(Collection<?> c) {
         for (Object o :
                 c) {

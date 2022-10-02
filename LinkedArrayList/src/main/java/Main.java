@@ -1,3 +1,6 @@
+import org.junit.jupiter.api.Assertions;
+
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
@@ -5,7 +8,7 @@ import java.util.List;
 public class Main {
 
     public static void main(String[] args) {
-        List<Integer> list = new LinkedArrayList();
+        LinkedArrayList<Integer> list = new LinkedArrayList();
 //        list.addAll(List.of(0, 1, 2, 3, 4, 5, 6, 7, 8, 9));
         list.add(0);
         list.add(1);

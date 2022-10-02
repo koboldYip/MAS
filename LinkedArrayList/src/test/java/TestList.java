@@ -34,8 +34,6 @@ public class TestList {
             list.remove(integer);
         }
 //        list.removeAll(List.of(0,1,2,3,4,5,6,7,8,9));
-        System.out.println("list.size = " + list.size);
-        System.out.println("list.toArray() = " + Arrays.toString(list.toArray()));
         Assertions.assertTrue(list.isEmpty());
     }
 
@@ -81,6 +79,14 @@ public class TestList {
         list.remove(0);
         list.remove(2);
         Assertions.assertArrayEquals(new Integer[]{1, 2, 4, 5, 6, 7, 8, 9}, list.toArray());
+    }
+
+    @Test
+    public void addByIndexTest() {
+        list.addAll(List.of(0, 1, 2, 3, 4, 5, 6, 7, 8, 9));
+        list.add(0, 7);
+        list.add(2, 3);
+        Assertions.assertArrayEquals(new Integer[]{7, 0, 3, 1, 2, 3, 4, 5, 6, 7, 8, 9}, list.toArray());
     }
 
     @Test

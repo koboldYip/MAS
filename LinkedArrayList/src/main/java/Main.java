@@ -20,13 +20,20 @@ public class Main {
         list.add(7);
         list.add(8);
         list.add(9);
-        Iterator<Integer> iterator = list.iterator();
-        while (iterator.hasNext()) {
-            list.remove(iterator.next());
-        }
+
+        list.remove(Integer.valueOf(0));
+        list.remove(Integer.valueOf(1));
+        list.remove(Integer.valueOf(2));
+        list.remove(Integer.valueOf(3));
+        list.remove(Integer.valueOf(4));
+        list.remove(Integer.valueOf(5));
+        list.remove(Integer.valueOf(6));
+        list.remove(Integer.valueOf(7));
+        list.remove(Integer.valueOf(8));
+        list.remove(Integer.valueOf(9));
         System.out.println("list.size = " + list.size());
         System.out.println("list.toArray() = " + Arrays.toString(list.toArray()));
-        System.out.println("list.get(0) = " + list.get(0));
+//        System.out.println("list.get(0) = " + list.get(0));
     }
 
 }

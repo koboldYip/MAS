@@ -252,12 +252,7 @@ public class LinkedArrayList<E> implements Iterable<E> {
     }
 
     public boolean remove(Object o) {
-        int i = 0;
-        for (E e :
-                this) {
-            if (e == o) remove(i);
-            i++;
-        }
+        remove(indexOf(o));
         return false;
     }
 

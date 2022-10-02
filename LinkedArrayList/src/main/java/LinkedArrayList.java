@@ -267,12 +267,10 @@ public class LinkedArrayList<E> implements Iterable<E> {
     class LinkedArrayListIterator implements Iterator<E> {
 
         private Triplet<E> currentTriplet = first;
-        private Triplet<E> nextTriplet;
         private int lastReturned;
         private int count = 1;
 
         public LinkedArrayListIterator() {
-            if (currentTriplet.next != null) nextTriplet = currentTriplet.next;
             for (int i = 0; i < currentTriplet.item.length; i++) {
                 if (currentTriplet.item[i] != null) {
                     lastReturned = i;
@@ -291,9 +289,9 @@ public class LinkedArrayList<E> implements Iterable<E> {
             if (!hasNext())
                 throw new NoSuchElementException();
             count++;
-            if (lastReturned + 1 > 5) {
-                currentTriplet = nextTriplet;
-                if (nextTriplet.next != null) nextTriplet = nextTriplet.next;
+            if (lastReturned == 5) {
+                if (currentTriplet.next != null) currentTriplet = currentTriplet.next;
+                else currentTriplet = first;
                 lastReturned = 0;
             }
             return currentTriplet.item[lastReturned++];

@@ -3,7 +3,7 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
-public class LinkedArrayList<E> implements Iterable<E> {
+public class LinkedArrayList<E> implements Iterable<E>, Collection<E> {
 
     int size = 0;
     public Triplet<E> first;
@@ -34,6 +34,25 @@ public class LinkedArrayList<E> implements Iterable<E> {
             }
         }
         return false;
+    }
+
+    @Override
+    public boolean retainAll(Collection<?> c) {
+        int i = 0;
+        for (Object o : c) {
+            if (this.contains(o)) {
+                i++;
+            }
+        }
+        Object[] array = new Object[i];
+        i = 0;
+        for (Object o : c) {
+            if (this.contains(o)) {
+                array[i++] = o;
+            }
+        }
+        arrayToTriplets(array);
+        return i == 0;
     }
 
     public void clear() {
@@ -244,6 +263,16 @@ public class LinkedArrayList<E> implements Iterable<E> {
             array[i++] = e;
         }
         return array;
+    }
+
+    @Override
+    public <T> T[] toArray(T[] a) {
+        Object[] array = new Object[size()];
+        int i = 0;
+        for (E e : this) {
+            array[i++] = e;
+        }
+        return (T[]) array;
     }
 
     public boolean add(E e) {

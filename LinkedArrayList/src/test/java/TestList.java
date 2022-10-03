@@ -30,7 +30,7 @@ public class TestList {
     @Test
     public void IsEmptyTest() {
         list.addAll(List.of(0, 1, 2, 3, 4, 5, 6, 7, 8, 9));
-        list.removeAll(List.of(0,1,2,3,4,5,6,7,8,9));
+        list.removeAll(List.of(0, 1, 2, 3, 4, 5, 6, 7, 8, 9));
         Assertions.assertTrue(list.isEmpty());
     }
 
@@ -97,6 +97,14 @@ public class TestList {
     public void indexOfTest() {
         list.addAll(List.of(22, 33, 42, 55, 46, 524, 6, 77, 89, 9));
         Assertions.assertEquals(4, list.indexOf(46));
+    }
+
+    @Test
+    public void retainTest() {
+        list.addAll(List.of(22, 33, 42, 55, 46, 524, 6, 77, 89, 9));
+        list.retainAll(List.of(11, 44, 22, 33, 42, 55));
+        System.out.println("list.toArray() = " + Arrays.toString(list.toArray()));
+        Assertions.assertArrayEquals(new Integer[]{22, 33, 42, 55}, list.toArray());
     }
 
 }

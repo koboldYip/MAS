@@ -1,6 +1,7 @@
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import java.util.Arrays;
 import java.util.List;
 
 public class TestList {
@@ -29,10 +30,7 @@ public class TestList {
     @Test
     public void IsEmptyTest() {
         list.addAll(List.of(0, 1, 2, 3, 4, 5, 6, 7, 8, 9));
-        for (Integer integer : list) {
-            list.remove(integer);
-        }
-//        list.removeAll(List.of(0,1,2,3,4,5,6,7,8,9));
+        list.removeAll(List.of(0,1,2,3,4,5,6,7,8,9));
         Assertions.assertTrue(list.isEmpty());
     }
 

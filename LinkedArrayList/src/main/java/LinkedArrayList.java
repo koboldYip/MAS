@@ -1,3 +1,4 @@
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
@@ -68,7 +69,7 @@ public class LinkedArrayList<E> implements Iterable<E> {
 
         System.arraycopy(array, 0, result, 0, index);
         System.arraycopy(array, index + 1, result, index, array.length - index - 1);
-
+        System.out.println("result = " + Arrays.toString(result));
         arrayToTriplets(result);
         return (E) OldValue;
     }
@@ -202,9 +203,8 @@ public class LinkedArrayList<E> implements Iterable<E> {
     }
 
     void updateTriplet() {
-        Triplet<E> elementData = new Triplet<>();
-        first = elementData;
-        last = elementData;
+        first = new Triplet<>();
+        last = first;
         size = 0;
     }
 
@@ -291,7 +291,6 @@ public class LinkedArrayList<E> implements Iterable<E> {
             count++;
             if (lastReturned == 5) {
                 if (currentTriplet.next != null) currentTriplet = currentTriplet.next;
-                else currentTriplet = first;
                 lastReturned = 0;
             }
             return currentTriplet.item[lastReturned++];

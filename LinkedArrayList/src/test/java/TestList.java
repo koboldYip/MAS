@@ -103,7 +103,6 @@ public class TestList {
     public void retainTest() {
         list.addAll(List.of(22, 33, 42, 55, 46, 524, 6, 77, 89, 9));
         list.retainAll(List.of(11, 44, 22, 33, 42, 55));
-        System.out.println("list.toArray() = " + Arrays.toString(list.toArray()));
         Assertions.assertArrayEquals(new Integer[]{22, 33, 42, 55}, list.toArray());
     }
 

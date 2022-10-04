@@ -10,9 +10,7 @@ public class LinkedArrayList<E> implements Iterable<E>, Collection<E> {
     public Triplet<E> last;
 
     public LinkedArrayList() {
-        Triplet<E> elementData = new Triplet<>();
-        first = elementData;
-        last = elementData;
+        updateTriplet();
     }
 
     public boolean addAll(Collection<? extends E> c) {
@@ -20,39 +18,26 @@ public class LinkedArrayList<E> implements Iterable<E>, Collection<E> {
     }
 
     public boolean addAll(int index, Collection<? extends E> c) {
+        int i = 0;
         for (E e : c) {
-            add(e);
+            add(index + i, e);
+            i++;
         }
         return true;
     }
 
 
     public boolean removeAll(Collection<?> c) {
-        for (Object o : c) {
-            if (indexOf(o) > -1) {
-                remove(indexOf(o));
-            }
-        }
+        c.stream()
+                .filter(o -> indexOf(o) > -1)
+                .forEach(o -> remove(indexOf(o)));
         return false;
     }
 
     @Override
     public boolean retainAll(Collection<?> c) {
-        int i = 0;
-        for (Object o : c) {
-            if (this.contains(o)) {
-                i++;
-            }
-        }
-        Object[] array = new Object[i];
-        i = 0;
-        for (Object o : c) {
-            if (this.contains(o)) {
-                array[i++] = o;
-            }
-        }
-        arrayToTriplets(array);
-        return i == 0;
+        arrayToTriplets(c.stream().filter(this::contains).toArray());
+        return true;
     }
 
     public void clear() {
@@ -61,18 +46,12 @@ public class LinkedArrayList<E> implements Iterable<E>, Collection<E> {
 
     public E get(int index) {
         checkElementIndex(index);
-        int i = 0;
-        for (E e :
-                this) {
-            if (i++ == index) return e;
-        }
-        throw new NoSuchElementException();
+        return this.stream().limit(index + 1).reduce((f, s) -> s).get();
     }
 
     public void add(int index, E element) {
         Object[] array = this.toArray();
         Object[] result = new Object[array.length + 1];
-
         System.arraycopy(array, 0, result, 0, index);
         result[index] = element;
         System.arraycopy(array, index, result, index + 1, array.length - index);
@@ -88,26 +67,17 @@ public class LinkedArrayList<E> implements Iterable<E>, Collection<E> {
 
         System.arraycopy(array, 0, result, 0, index);
         System.arraycopy(array, index + 1, result, index, array.length - index - 1);
-        System.out.println("result = " + Arrays.toString(result));
         arrayToTriplets(result);
         return (E) OldValue;
     }
 
     private void arrayToTriplets(Object[] array) {
         updateTriplet();
-        for (Object o : array) {
-            addLast((E) o);
-        }
+        Arrays.stream(array).forEach(o -> addLast((E) o));
     }
 
     public int indexOf(Object o) {
-        int i = 0;
-        for (E e :
-                this) {
-            if (e == (E) o) return i;
-            i++;
-        }
-        return -1;
+        return (int) this.stream().takeWhile(e -> e != o).count();
     }
 
     void linkFirst(E e) {
@@ -214,11 +184,7 @@ public class LinkedArrayList<E> implements Iterable<E>, Collection<E> {
     }
 
     public boolean contains(Object o) {
-        for (E e : this) {
-            if (e == (E) o)
-                return true;
-        }
-        return false;
+        return this.stream().anyMatch(e -> e == (E) o);
     }
 
     void updateTriplet() {
@@ -286,11 +252,7 @@ public class LinkedArrayList<E> implements Iterable<E>, Collection<E> {
     }
 
     public boolean containsAll(Collection<?> c) {
-        for (Object o :
-                c) {
-            if (!contains(o)) return false;
-        }
-        return true;
+        return c.stream().allMatch(this::contains);
     }
 
     class LinkedArrayListIterator implements Iterator<E> {

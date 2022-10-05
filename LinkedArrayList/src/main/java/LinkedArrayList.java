@@ -1,9 +1,6 @@
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.NoSuchElementException;
+import java.util.*;
 
-public class LinkedArrayList<E> implements Iterable<E>, Collection<E> {
+public class LinkedArrayList<E> implements Collection<E> {
 
     int size = 0;
     public Triplet<E> first;

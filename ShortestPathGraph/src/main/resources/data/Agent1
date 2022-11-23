@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cfg initiative="true" target="Agent12">
+    <name>Agent1</name>
+    <neighbours>
+        <neighbor agentName="Agent2" weight="20"/>
+        <neighbor agentName="Agent3" weight="9"/>
+        <neighbor agentName="Agent4" weight="18"/>
+        <neighbor agentName="Agent5" weight="23"/>
+    </neighbours>
+</cfg>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cfg>
+    <name>Agent3</name>
+    <neighbours>
+        <neighbor agentName="Agent1" weight="9"/>
+        <neighbor agentName="Agent2" weight="24"/>
+        <neighbor agentName="Agent4" weight="16"/>
+        <neighbor agentName="Agent5" weight="16"/>
+    </neighbours>
+</cfg>

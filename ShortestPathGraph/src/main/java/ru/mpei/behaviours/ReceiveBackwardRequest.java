@@ -7,28 +7,23 @@ import jade.lang.acl.MessageTemplate;
 import ru.mpei.common.Content;
 import ru.mpei.common.config.Configuration;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class ReceiveBackwardRequest extends Behaviour {
 
-    private List<Content> failedPaths;
-    private List<Content> successfulPaths;
     private Configuration configuration;
+    private List<Content> successfulPaths;
+    private List<Content> failedPaths;
 
     public ReceiveBackwardRequest(Configuration configuration) {
         this.configuration = configuration;
-        if (configuration.isInitiative()) {
-            this.failedPaths = new ArrayList<>();
-            this.successfulPaths = new ArrayList<>();
-        }
     }
 
-    @Override
-    public void onStart() {
-        if (configuration.isInitiative())
-            getAgent().addBehaviour(new CalculateResult(getAgent(), 1000, configuration,
-                    successfulPaths, failedPaths));
+    public ReceiveBackwardRequest(Configuration configuration,
+                                  List<Content> successfulPaths, List<Content> failedPaths) {
+        this.configuration = configuration;
+        this.successfulPaths = successfulPaths;
+        this.failedPaths = failedPaths;
     }
 
     @Override

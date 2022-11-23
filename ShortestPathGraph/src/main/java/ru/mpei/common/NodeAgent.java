@@ -26,9 +26,8 @@ public class NodeAgent extends Agent {
                 .readValue(new File("ShortestPathGraph/src/main/resources/data/" + getLocalName()),
                         Configuration.class);
         addBehaviour(new ReceiveForwardRequest(configuration));
-        addBehaviour(new ReceiveBackwardRequest(configuration));
         if (configuration.isInitiative()) {
             addBehaviour(new StartSearch(this, 500, configuration));
-        }
+        } else addBehaviour(new ReceiveBackwardRequest(configuration));
     }
 }

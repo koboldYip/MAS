@@ -12,11 +12,11 @@ import ru.mpei.common.config.Configuration;
 
 @Getter
 @Setter
-public class StartSearch extends WakerBehaviour {
+public class SendFirstRequest extends WakerBehaviour {
 
     private Configuration configuration;
 
-    public StartSearch(Agent a, long timeout, Configuration configuration) {
+    public SendFirstRequest(Agent a, long timeout, Configuration configuration) {
         super(a, timeout);
         this.configuration = configuration;
     }

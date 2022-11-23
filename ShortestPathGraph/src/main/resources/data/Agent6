@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<cfg>
+<cfg initiative="true" target="Agent1">
     <name>Agent6</name>
     <neighbours>
         <neighbor agentName="Agent4" weight="15"/>

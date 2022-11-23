@@ -27,6 +27,6 @@ public class StartSearch extends WakerBehaviour {
         List<Content> failedPaths = new ArrayList<>();
         getAgent().addBehaviour(new ReceiveBackwardRequest(configuration, successfulPaths, failedPaths));
         getAgent().addBehaviour(new CalculateResult(getAgent(), 1000, configuration, successfulPaths, failedPaths));
-        getAgent().addBehaviour(new SendFirstRequest(getAgent(), 500, configuration));
+        getAgent().addBehaviour(new SendFirstRequest(configuration));
     }
 }
